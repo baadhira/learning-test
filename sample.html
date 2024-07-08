@@ -27,4 +27,53 @@ fetchData()
         console.error('Error in fetching data:', error.message);
         // Handle error gracefully
     });
+
+
+
+    // Debounce function
+function debounce(func, delay) {
+  let timeoutId;
+  return function(...args) {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+ 
+// Example usage: Debouncing a search input
+const searchInput = document.getElementById('searchInput');
+ 
+searchInput.addEventListener('input', debounce(function(event) {
+  console.log('Search query:', event.target.value);
+  // You can call your API or perform any search related tasks here
+}, 300)); // 300 milliseconds debounce delay
+
+function createCounter() {
+  let count = 0; // Private variable
+ 
+  return {
+    increment: function() {
+      count++;
+      return count;
+    },
+    decrement: function() {
+      count--;
+      return count;
+    },
+    getCount: function() {
+      return count;
+    }
+  };
+}
+ 
+const counter = createCounter();
+ 
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+console.log(counter.getCount()); // 2
+console.log(counter.decrement()); // 1
+console.log(counter.getCount()); // 1
 </script>
